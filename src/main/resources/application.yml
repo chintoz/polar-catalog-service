@@ -2,3 +2,12 @@ polar:
   greeting: Welcome to polar book service from local configuration file.
 server:
   port: 9001
+spring:
+  application:
+    name: polar-catalog-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8080
+
