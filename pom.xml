@@ -11,8 +11,8 @@
     <groupId>es.menasoft</groupId>
     <artifactId>polar-catalog-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>catalog-service</name>
-    <description>catalog-service</description>
+    <name>polar-catalog-service</name>
+    <description>polar-catalog-service</description>
     <properties>
         <java.version>17</java.version>
     </properties>
