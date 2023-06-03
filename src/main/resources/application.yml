@@ -1,0 +1,4 @@
+polar:
+  greeting: Welcome to polar book service from local configuration file.
+server:
+  port: 9001
