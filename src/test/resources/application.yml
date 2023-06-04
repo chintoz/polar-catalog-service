@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: polar-catalog-service
+  config:
+    import: "optional:configserver:"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
