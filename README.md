@@ -87,3 +87,11 @@ For cleaning up the resources in the kubernetes cluster:
 > kubectl delete service polar-catalog-service
 > kubectl delete deployment polar-catalog-service
 ```
+
+## Local Database
+
+To link it with a local database we could use the following command to startup a postgresSQL database in a docker container
+
+```shell
+docker run -d --name polar-postgres -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=developer -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
+```

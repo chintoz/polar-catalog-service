@@ -3,6 +3,8 @@ spring:
     name: polar-catalog-service
   config:
     import: "optional:configserver:"
+  datasource:
+    url: jdbc:tc:postgresql:14.4:///
 management:
   endpoints:
     web:
