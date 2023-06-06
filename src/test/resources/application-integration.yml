@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: polar-catalog-service
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:tc:postgresql:14.4:///
+  sql:
+    init:
+      mode: always
+
