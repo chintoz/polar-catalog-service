@@ -95,3 +95,30 @@ To link it with a local database we could use the following command to startup a
 ```shell
 docker run -d --name polar-postgres -e POSTGRES_USER=developer -e POSTGRES_PASSWORD=developer -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
 ```
+
+## Dockerization
+
+We could create a network
+
+```shell
+docker network create catalog-network
+```
+
+And we could launch the database on that network
+
+```shell
+docker run -d --name polar-postgres --net catalog-network -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
+```
+
+We could create the docker image from docker folder like this
+
+```shell
+docker build -t polar-catalog-service -f Dockerfile ../
+```
+
+And it could be launched in this way:
+
+```shell
+docker run -d --name polar-catalog-service --net catalog-network -p 9001:9001 -e SPRING_DATASOURCE_URL=jdbc:postgresql://user:password@polar-postgres:5432/polardb_catalog -e SPRING_PROFILES_ACTIVE=testdata polar-catalog-service
+```
+
