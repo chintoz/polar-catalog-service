@@ -107,7 +107,7 @@ docker network create catalog-network
 And we could launch the database on that network
 
 ```shell
-docker run -d --name polar-postgres --net catalog-network -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
+docker run -d --name polar-postgres --hostname polar-postgres --net catalog-network -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -e POSTGRES_DB=polardb_catalog -p 5432:5432 postgres:14.4
 ```
 
 We could create the docker image from docker folder like this
@@ -119,6 +119,6 @@ docker build -t polar-catalog-service -f Dockerfile ../
 And it could be launched in this way:
 
 ```shell
-docker run -d --name polar-catalog-service --net catalog-network -p 9001:9001 -e SPRING_DATASOURCE_URL=jdbc:postgresql://user:password@polar-postgres:5432/polardb_catalog -e SPRING_PROFILES_ACTIVE=testdata polar-catalog-service
+docker run -d --name polar-catalog-service --net catalog-network -p 9001:9001 -e SPRING_DATASOURCE_URL="jdbc:postgresql://polar-postgres:5432/polardb_catalog?user=user&password=password" -e SPRING_PROFILES_ACTIVE=testdata polar-catalog-service
 ```
 
