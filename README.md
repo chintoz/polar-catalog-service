@@ -113,6 +113,7 @@ docker run -d --name polar-postgres --hostname polar-postgres --net catalog-netw
 We could create the docker image from docker folder like this
 
 ```shell
+cd docker
 docker build -t polar-catalog-service -f Dockerfile ../
 ```
 
@@ -121,4 +122,8 @@ And it could be launched in this way:
 ```shell
 docker run -d --name polar-catalog-service --net catalog-network -p 9001:9001 -e SPRING_DATASOURCE_URL="jdbc:postgresql://polar-postgres:5432/polardb_catalog?user=user&password=password" -e SPRING_PROFILES_ACTIVE=testdata polar-catalog-service
 ```
+And we can check image vulnerabilities with this command
 
+```shell
+grype polar-catalog-service
+```
