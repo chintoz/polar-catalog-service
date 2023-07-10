@@ -127,3 +127,11 @@ And we can check image vulnerabilities with this command
 ```shell
 grype polar-catalog-service
 ```
+
+To publish de image in github package registry
+
+```shell
+docker login ghcr.io
+```
+
+with github user +  github token with write:package permission.

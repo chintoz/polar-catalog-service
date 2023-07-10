@@ -103,6 +103,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>ghcr.io/chintoz/${project.name}</imageName>
+                    <image>
+                        <publish>true</publish>
+                        <env>
+                            <BP_JVM_VERSION>17.*</BP_JVM_VERSION>
+                        </env>
+                    </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>chintoz</username>
+                            <password>${token}</password>
+                            <url>https://ghcr.io</url>
+                        </publishRegistry>
+                    </docker>
+                </configuration>
             </plugin>
         </plugins>
     </build>
