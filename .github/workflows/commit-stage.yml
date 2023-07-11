@@ -1,5 +1,9 @@
 name: Commit Stage
 on: push
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: chintoz/polar-catalog-service
+  IMAGE_VERSION: latest
 
 jobs:
   build:
@@ -33,3 +37,34 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: ${{ steps.scan.outputs.sarif}}
+  package:
+    name: Package and Publish
+    if: ${{github.ref == 'refs/head/main'}}
+    needs: [build]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+      - name: Build container image
+        run: |
+          chmod +x mvnw
+          ./mvnw spring-boot:build-image -DpublishImage=false -Dregistry=${{env.REGISTRY}} -DimageName=${{env.IMAGE_NAME}} -DimageVersion=${{env.IMAGE_VERSION}}
+      - name: OCI image vulnerability scanning
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          image: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{env.IMAGE_VERSION}}
+        fail-build: false
+        severity-cutoff: high
+        acs-report-enable: true
+

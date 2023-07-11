@@ -17,6 +17,13 @@
         <java.version>17</java.version>
         <spring-cloud-release.version>2022.0.3</spring-cloud-release.version>
         <test-containers-version>1.18.3</test-containers-version>
+
+        <!-- Build properties-->
+        <registry>ghcr.io</registry>
+        <imageName>chintoz/polar-catalog-service</imageName>
+        <imageVersion>latest</imageVersion>
+        <publishImage>true</publishImage>
+        <registryToken></registryToken>
     </properties>
 
     <dependencyManagement>
@@ -104,9 +111,9 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <imageName>ghcr.io/chintoz/${project.name}</imageName>
+                    <imageName>${registry}/${imageName}:${imageVersion}</imageName>
                     <image>
-                        <publish>true</publish>
+                        <publish>${publishImage}</publish>
                         <env>
                             <BP_JVM_VERSION>17.*</BP_JVM_VERSION>
                         </env>
@@ -114,8 +121,7 @@
                     <docker>
                         <publishRegistry>
                             <username>chintoz</username>
-                            <password>${token}</password>
-                            <url>https://ghcr.io</url>
+                            <password>${registryToken}</password>
                         </publishRegistry>
                     </docker>
                 </configuration>
