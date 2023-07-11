@@ -39,7 +39,7 @@ jobs:
           sarif_file: ${{ steps.scan.outputs.sarif}}
   package:
     name: Package and Publish
-    if: ${{github.ref == 'refs/head/main'}}
+    if: ${{ github.ref == 'refs/head/main' }}
     needs: [build]
     runs-on: ubuntu-22.04
     permissions:
@@ -58,7 +58,7 @@ jobs:
       - name: Build container image
         run: |
           chmod +x mvnw
-          ./mvnw spring-boot:build-image -DpublishImage=false -Dregistry=${{env.REGISTRY}} -DimageName=${{env.IMAGE_NAME}} -DimageVersion=${{env.IMAGE_VERSION}}
+          ./mvnw spring-boot:build-image -DpublishImage=false -Dregistry=${{ env.REGISTRY }} -DimageName=${{ env.IMAGE_NAME }} -DimageVersion=${{ env.IMAGE_VERSION }}
       - name: OCI image vulnerability scanning
         uses: anchore/scan-action@v3
         id: scan
